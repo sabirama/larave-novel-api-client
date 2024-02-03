@@ -1,0 +1,53 @@
+.book-main-container {
+  width: 100%;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+}
+
+.image-container h3 {
+  position: absolute;
+  padding: 2rem;
+  left: 0;
+  bottom: 0;
+  text-shadow: 0 0 5px black;
+  text-align: left;
+}
+
+.image-container img {
+  width: 100%;
+  max-width: 768px;
+  height: auto;
+}
+
+.detail-container {
+  display: grid;
+  padding: 1rem;
+}
+
+.rating-container {
+  padding: 1rem;
+  width: 100%;
+}
+
+.rating-container h4 {
+    padding: 2rem 0;
+}
+
+.rate-content {
+    padding:0 2rem 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .book-main-container {
+    display: flex;
+  }
+
+  .detail-container {
+    max-width: 800px;
+    width: 100%;
+  }
+}

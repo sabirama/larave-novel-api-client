@@ -1,0 +1,165 @@
+@font-face {
+    font-family: myfont;
+    src: url(./assets/fonts/DragonHunter-9Ynxj.otf);
+}
+
+:root {
+  --text-primary: 255, 255, 224;
+  --text-secondary: 11, 186, 177;
+  --text-tertiary: 255, 167, 100;
+  --shadow-primary: 0, 0, 0;
+  --shadow-secondary: 14, 38, 117;
+  --shadow-tertiary: 255, 255, 255;
+  --bg-primary: 32, 178, 171;
+  --bg-secondary: 0, 30, 94;
+  --bg-tertiary: 30, 30, 30;
+  font-family: myfont;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: rgb(var(--text-primary));
+}
+
+* ::-webkit-scrollbar {
+    background-color: transparent;
+    height: 10px;
+    position: absolute;
+}
+* ::-webkit-scrollbar:hover {
+   background-color: azure;
+}
+* ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--bg-primary));
+    border-radius: 8px;
+}
+
+body {
+  min-width: 350px;
+  background: rgb(var(--bg-tertiary));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+   scrollbar-gutter: stable both-edges;
+}
+
+main {
+  background: rgba(var(--bg-primary), 0.8);
+  min-width: 350px;
+  width: 100%;
+  margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .px-s-1 {
+    padding: 1rem;
+  }
+
+  .mx-s-1 {
+    margin: 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .px-m-1 {
+    padding: 1rem;
+  }
+  .mx-m-1 {
+    margin: 1rem;
+  }
+}
+
+@media screen and (min-width: 1240px) {
+  main {
+    width: 1240px;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+input {
+  color: rgb(var(--bg-tertiary));
+}
+
+button {
+  background: none;
+  padding: 1rem 2rem;
+  border: 2px solid rgb(var(--shadow-primary));
+  border-radius: 4px;
+}
+
+.button-primary {
+  background: rgb(var(--bg-primary));
+  color: rgb(var(--text-primary));
+}
+
+.button-primary:active {
+    background: rgb(var(--text-primary)); 
+    color: rgb(var(--bg-primary));
+}
+
+.button-secondary {
+    background: rgb(var(--bg-secondary));
+    color: rgb(var(--text-secondary));
+  }
+  
+.button-secondary:active {
+  background: rgb(var(--text-secondary));
+  color: rgb(var(--bg-secondary));
+}
+
+.button-tertiary {
+    background: rgb(var(--bg-tertiary));
+    color: rgb(var(--text-tertiary));
+  }
+
+.button-tertiary:active {
+  background: rgb(var(--text-tertiary));
+  color: rgb(var(--bg-tertiary));
+}
+
+.text {
+    font-size: 1rem;
+    font-weight: bolder;
+    letter-spacing: .25rem;
+    line-height: 1.5rem;
+    text-align: left;
+    text-indent: 2rem;
+}
+
+.more {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  bottom: 0;
+  right: 2rem;
+  font-size: 2rem;
+  color: rgb(var(--shadow-primary));
+}
+
+.spinner {
+  opacity: 0;
+  display: inline-block;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(-2px) rotateY(0deg);
+  }
+  100% {
+    transform: translateY(-2px) rotateY(360deg);
+  }
+  
+}

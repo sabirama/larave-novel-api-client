@@ -1,0 +1,26 @@
+.recommended {
+    width: 100%;
+    margin-top: 3rem;
+    padding: 1rem;
+    background: rgb(var(--bg-secondary));
+    position: relative;
+    height: 800px;
+    overflow-y: hidden;
+}
+
+.recommended:hover {
+    height: fit-content;
+}
+
+.recommended:hover > .more {
+    display: none;
+}
+
+@media screen and (min-width:768px) {
+    .recommended {
+        height: fit-content;
+    }
+    .more {
+        display: none;
+    }
+}
