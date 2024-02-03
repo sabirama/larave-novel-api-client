@@ -31,7 +31,7 @@ const createRoutes = async () => {
 
 const MainRouter = createRouter({
     history: createWebHistory(),
-    routes: await createRoutes()
+    routes: createRoutes()
 });
 
 export default MainRouter;
