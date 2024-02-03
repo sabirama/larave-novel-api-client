@@ -80,10 +80,7 @@ const getRating = async () => {
 const getUser = async (data) => {
   try {
     const user = await apiGet(userEndpoint + data.rate.user.id);
-
     rateObject.value.push({ rate: data, user: user });
-
-    console.log(rateObject.value);
   } catch (error) {
     console.error(error);
   }
