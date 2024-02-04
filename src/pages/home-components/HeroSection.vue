@@ -16,6 +16,7 @@
       <span class="more">. . .</span>
     </div>
     <div class="hero-cards">
+      <h4>LATEST</h4>
       <div class="card-container">
         <AppCard
           v-for="(item) in books.value"
@@ -28,7 +29,6 @@
 
         />
       </div>
-      <h4>LATEST</h4>
     </div>
   </div>
 </template>

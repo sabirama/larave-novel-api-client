@@ -13,6 +13,8 @@ article {
     gap: 1.5rem;
     background: rgba(var(--bg-tertiary),.5);
     border-radius: 1rem;
+    
+   
 }
 
 .features h4 {

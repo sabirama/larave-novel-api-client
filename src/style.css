@@ -22,6 +22,7 @@
   box-sizing: border-box;
   text-decoration: none;
   color: rgb(var(--text-primary));
+  transition-duration: .6s;
 }
 
 * ::-webkit-scrollbar {
@@ -53,7 +54,7 @@ body {
 }
 
 main {
-  background: rgba(var(--bg-primary), 0.8);
+  background: rgb(var(--bg-primary));
   min-width: 350px;
   width: 100%;
   margin: auto;

@@ -48,15 +48,13 @@
     overflow-x: scroll;
     background: rgba(var(--bg-tertiary), 0.5);
     position: relative;
-    transform: translateY(1rem) rotate(180deg);
 }
 
 .hero-cards > h4 {
-    padding: 1rem;
+    padding: 2rem 1rem 1rem;
     position: sticky;
     left: 0;
     letter-spacing: .25rem;
-    transform: rotate(180deg);
 }
 
 .card-container {
@@ -64,7 +62,6 @@
     gap: 1rem;
     width: fit-content;
     padding: 0 1rem 1rem;
-    transform: rotate(180deg);
 }
 
 .button-container  {

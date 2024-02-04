@@ -13,7 +13,6 @@ export const catchEvent = (event, action) => {
 
 export const apiGet = async(endpoint) => {
     //takes in a string(endpoint) to do a GET fetch.
-    const url = apiUrl;
     const data = await fetch(apiUrl + endpoint).then( async response => {
         const data = await response.json();
         return data;
@@ -21,4 +20,20 @@ export const apiGet = async(endpoint) => {
     return data;
 }
 
-export default { dispatchCustomEvent, catchEvent, apiGet };
+export const apiFetch = async(endpoint,method, token, body) => {
+     //takes in a string(endpoint), string(method), string(token) and object(body) to perform fetch request
+     const data = await fetch(apiUrl + endpoint, {
+        'method' :method,
+        'headers': {
+            'Content-Type' : 'application/json',
+            'Bearer-Token' : token
+        },
+        'body': body
+     }).then( async response => {
+         const data = await response.json();
+         return data;
+     });
+     return data;
+}
+
+export default { dispatchCustomEvent, catchEvent, apiGet, apiFetch };
