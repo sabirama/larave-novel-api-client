@@ -24,15 +24,16 @@
 
   const  value = ref('');
   const auth = ref(false);
+
   window.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    sessionStorage.setItem('search', value.value);
-    dispatchCustomEvent('search');
-  }
+    if (e.key === 'Enter') {
+      sessionStorage.setItem('search', value.value);
+      dispatchCustomEvent('search');
+    }
   });
 
-  function updateValue(event) {
-    sessionStorage.setItem('search', event.target.value);
+  function updateValue() {
+    sessionStorage.setItem('search', value.value);
   }
 
 

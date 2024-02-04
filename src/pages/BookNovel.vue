@@ -14,15 +14,15 @@ User
         />
       </div>
       <div class="detail-container">
-        <div>
+        <div class="about background">
             <h4>About</h4>
             <p>{{ bookObject.details }}</p>
         </div>
-        <ul class="authors">
+        <ul class="authors background">
            <h4> Authors</h4>
           <li v-for="author in bookObject.author">{{ author.name }}</li>
         </ul>
-        <ul class="genre">
+        <ul class="genre background">
             <h4>Genres</h4>
           <li v-for="genre in bookObject.genre">{{ genre.name }}</li>
         </ul>
@@ -31,15 +31,54 @@ User
     <div class="rating-container">
         <h4>Comments</h4>
       <ul>
-        <li v-for="rating in rateObject">
-        <p>{{ rating.user.data.username }}</p>
-        <div class="rate-content">
-        <span v-for="star in 5" :key="star">
-            <span v-if="rating.rate >= star">★</span>
-            <span v-else>☆</span>
-        </span>
-        <p>{{ rating.rate.rate.comment }}</p>
-        </div>
+        <li  class="rate">
+         <span class="rater">
+            <img src="../assets/images/rose-petal.jpg" alt="user-image" class="user-image"> 
+            <span>LightReader</span>
+            <span class="rate-stars">
+              rating :
+                <span >★</span>
+                <span >★</span>
+                <span >★</span>
+                <span >★</span>
+                <span >★</span>
+            </span>
+          </span>
+          <div class="rate-content">
+          <p>Sample Comment. this is a test comment for layouting the website.</p>
+          </div>
+        </li>
+
+        <li  class="rate">
+         <span class="rater">
+            <img src="../assets/images/rose-petal.jpg" alt="user-image" class="user-image"> 
+            <span>LightReader</span>
+            <span class="rate-stars">
+              rating :
+                <span >★</span>
+                <span >★</span>
+                <span >★</span>
+                <span >★</span>
+                <span >★</span>
+            </span>
+          </span>
+          <div class="rate-content">
+          <p>Sample Comment. this is a test comment for layouting the website.</p>
+          </div>
+        </li>
+
+        <li v-for="rating in rateObject" class="rate">
+          <span>
+            <img :src="rating.user.data.profile_image" alt="user-image" class="user-image">
+            <span>{{ rating.user.data.username }}</span>
+            <span v-for="star in 5" :key="star" class="rate-stars">
+              <span v-if="rating.rate >= star">★</span>
+              <span v-else>☆</span>
+          </span>
+          </span>
+          <div class="rate-content">
+            <p>{{ rating.rate.rate.comment }}</p>
+          </div>
         </li>
       </ul>
     </div>

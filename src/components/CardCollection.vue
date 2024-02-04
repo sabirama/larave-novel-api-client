@@ -1,5 +1,5 @@
 <template>
-    <div class="card-container">
+    <div class="card-container" >
            <span class="card-with-details" v-for="(item) in books.value">
             <AppCard 
                 :imgSrc="item.cover_image ? url + item.cover_image : '/src/assets/images/placeholder-book-image.svg'"
@@ -7,7 +7,6 @@
                 :latest="'new'"
                 :rate="item.rating[0]?.rate"
                 :title="item.title"
-                details="more"
                 :id="item.id" />
                 <div class="card-detail">
                     <p>{{ item.details }}</p>
@@ -25,21 +24,21 @@ import Variables from '../js/Variables.js';
 const books = ref([]);
 const url = Variables.baseUrl;
 const currPage = ref(1);
-const pageUrl = Variables.bookEndpoint + "?" + Variables.searchBookTitle(sessionStorage.getItem('search')) + Variables.pageSize(20) + Variables.pageOn(currPage.value)
 
 catchEvent('search', ()=>{
-    getData(sessionStorage.getItem('search'));
+    getData();
 });
 
-const getData = async (item) => {
+const getData = async () => {
+    const pageUrl = Variables.bookEndpoint + "?" + Variables.searchBookTitle(sessionStorage.getItem('search')) + Variables.pageSize(20) + Variables.pageOn(currPage.value)
     let data;
-    if (item) {
+    if (sessionStorage.getItem('search')) {
         data = await apiGet(pageUrl);
-        console.log(data)
     } else {
         data = await apiGet(Variables.bookEndpoint);
     }
     books.value = ref(data.data);
+    return;
 }
 
 onMounted(()=> {getData()});

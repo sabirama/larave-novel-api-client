@@ -40,9 +40,9 @@ import AppCard from '../../components/AppCard.vue';
 import Variables from '../../js/Variables.js';
 
 const books = ref([]);
-const url = Variables.assetUrl;
+const url = Variables.baseUrl;
 
-const getData = async (item) => {
+const getData = async () => {
     const data = await apiGet(Variables.bookEndpoint + "?" + Variables.pageSize(8));
     return books.value = ref(data.data);
 }
