@@ -12,8 +12,7 @@
           <router-link to="/account">Account</router-link>
         </li>
         <li v-else>
-          <router-link to="/account/login" v-if="authPath == '/account/register'">Login</router-link>
-          <router-link to="/account/register" v-else-if="authPath == '/account/login'">Register</router-link>
+          <router-link to="/account/register" v-if="authPath == '/account/login'">Register</router-link>
           <router-link to="/account/login" v-else>Login</router-link>
         </li>
       </ul>
@@ -48,12 +47,13 @@ window.addEventListener("click", () => {
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     sessionStorage.setItem("search", value.value);
-    dispatchCustomEvent("search");
+    window.dispatchEvent(new Event('search'));
   }
 });
 
 function updateValue() {
   sessionStorage.setItem("search", value.value);
+  window.dispatchEvent( new Event('search'));
 }
 
 </script>
