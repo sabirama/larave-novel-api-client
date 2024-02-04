@@ -19,18 +19,19 @@ User
         <div class="overlay"></div>
       </div>
       <div class="detail-container">
-        <div class="about background">
-            <h4>About</h4>
-            <p>{{ bookObject.details }}</p>
-        </div>
         <ul class="authors background">
            <h4> Authors</h4>
           <li v-for="author in bookObject.author">{{ author.name }}</li>
         </ul>
-        <ul class="genre background">
+        <ul class="genres background">
             <h4>Genres</h4>
           <li v-for="genre in bookObject.genre">{{ genre.name }}</li>
         </ul>
+      </div>
+        
+      <div class="about background">
+          <h4>About</h4>
+          <p>{{ bookObject.details }}</p>
       </div>
     </div>
     <div class="rating-container">
@@ -120,6 +121,7 @@ const getUser = async (data) => {
 onMounted(() => {
   getBook();
   getRating();
+  sessionStorage.removeItem('search');
 });
 </script>
 

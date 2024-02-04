@@ -31,11 +31,15 @@
 
 <script setup>
 import { ref } from "vue";
-import { dispatchCustomEvent } from "../js/Functions.js";
+import { catchEvent, dispatchCustomEvent } from "../js/Functions.js";
 
 const value = ref("");
 const authPath = ref(window.location.pathname);
-const authenticated = ref(false);
+const authenticated = ref(sessionStorage.getItem('user'));
+
+catchEvent('authenticated', ()=> {
+  authenticated.value = sessionStorage.getItem('user');
+})
 
 window.addEventListener("click", () => {
   authPath.value = window.location.pathname;

@@ -21,7 +21,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { registerEndpoint } from "../../js/Variables.js";
+import { apiFetch } from "../../js/Functions.js";
 
+const router = useRouter();
 const username = ref("");
 const email = ref("");
 const password = ref("");
@@ -33,6 +37,24 @@ const formData = ref({
   password: "password",
   confirmPassword: "password",
 });
+
+async function registerUser(body) {
+  const data = await apiFetch(
+    registerEndpoint,
+    "POST",
+    "application/json",
+    null,
+    body
+  );
+  if (data.error){
+    alert('Username or email already exist.');
+  }
+  if (data.user) {
+    sessionStorage.setItem("user", JSON.stringify(data.token));
+    window.dispatchEvent(new Event('authenticated'));
+    router.push('/');
+  }
+}
 
 function updateForm(e) {
   e.preventDefault();
@@ -57,22 +79,24 @@ function updateForm(e) {
           password.value.length >= 8
         ) {
           if (password.value == confirmPassword.value) {
-            formData.value = {
+            const data = (formData.value = {
               username: username.value,
               email: email.value,
               password: password.value,
-            };
-            console.log(formData);
+            });
+
+            registerUser(data);
+          } else {
+            alert("Confirm password do not match");
           }
-          console.log("Username and Password is valid.");
         } else {
-          console.log("Password is invalid.");
+          alert("Password is invalid.");
         }
       } else {
-        console.log("invalid email address.");
+        alert("invalid email address.");
       }
     } else {
-      console.log("username must be atleast 8 characters.");
+      alert("username must be atleast 8 characters.");
     }
   } catch (error) {
     console.error(error.message);

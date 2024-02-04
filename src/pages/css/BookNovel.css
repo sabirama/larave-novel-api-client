@@ -1,5 +1,7 @@
 .book-main-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .image-container {
@@ -28,7 +30,6 @@
 }
 
 .detail-container {
-  display: grid;
   padding: 1rem;
 }
 
@@ -38,13 +39,24 @@
 }
 
 .about {
-  max-height: 400px;
-  overflow: scroll;
+ width: calc(100% - 4rem);
+ place-self: center;
+}
+
+.about p,
+.genres li,
+.authors li {
+  padding: 0 1rem;
+  line-height: 2;
+  text-indent: 1rem;
 }
 
 .rating-container {
-  padding: 1rem;
-  width: 100%;
+  background: rgba(var(--bg-tertiary),.5);
+  padding: 2rem 1rem 1rem;
+  margin: 2rem 0;
+  border-radius: 1rem;
+  width: calc(100% - 4rem);
 }
 
 .rate {
@@ -105,14 +117,10 @@
   background: rgba(var(--bg-tertiary), 0.5);
 }
 
-.background p,
-.background li {
-  margin-left: 1.5rem;
-}
-
 @media screen and (min-width: 768px) {
   .book-main-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
   }
 
   .image-container {
@@ -126,6 +134,11 @@
   .detail-container {
     max-width: 800px;
     width: 100%;
+  }
+
+  .about {
+    grid-column-start: 1;
+    grid-column-end: 5;
   }
 }
 

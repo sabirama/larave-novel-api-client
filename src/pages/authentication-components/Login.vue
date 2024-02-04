@@ -35,15 +35,38 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { loginEndpoint } from "../../js/Variables.js";
+import { apiFetch } from "../../js/Functions.js";
 
+const router = useRouter();
 const username = ref("");
-
 const password = ref("");
 
 const formData = ref({
   username: "user",
   password: "password",
 });
+
+async function logInUser(body) {
+  const data = await apiFetch(
+    loginEndpoint,
+    "POST",
+    "application/json",
+    null,
+    body
+  );
+  console.log(data)
+  if (data.error) {
+    alert("Error Login.");
+  }
+  if (data.user) {
+    console.log(data)
+    sessionStorage.setItem("user", JSON.stringify(data.token));
+    window.dispatchEvent(new Event("authenticated"));
+    router.push("/");
+  }
+}
 
 function updateForm(e) {
   e.preventDefault();
@@ -63,15 +86,20 @@ function updateForm(e) {
         hasSpecialChar &&
         password.value.length >= 8
       ) {
-        console.log("Username and Password is valid");
+        const data = (formData.value = {
+          username: username.value,
+          password: password.value,
+        });
+
+        logInUser(data);
       } else {
-        console.log("Password is invalid");
+        alert("Password is invalid");
       }
     } else {
-      console.log("username must be atleast 8 characters.");
+      alert("username must be atleast 8 characters.");
     }
   } catch (error) {
-    console.error("Error:", error.message);
+    alert("Error:", error.message);
   }
 }
 </script>
