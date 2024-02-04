@@ -20,7 +20,7 @@
     <div class="search">
       <input type="text" v-model="value" @change="updateValue" />
       <router-link to="/books"
-        ><button @click="dispatchCustomEvent('search')">
+        ><button @click="() => {dispatchCustomEvent('search')}">
           search
         </button></router-link
       >
@@ -47,13 +47,12 @@ window.addEventListener("click", () => {
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     sessionStorage.setItem("search", value.value);
-    window.dispatchEvent(new Event('search'));
+    dispatchCustomEvent('search');
   }
 });
 
 function updateValue() {
   sessionStorage.setItem("search", value.value);
-  window.dispatchEvent( new Event('search'));
 }
 
 </script>
