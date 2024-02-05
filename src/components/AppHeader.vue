@@ -12,7 +12,11 @@
           <router-link to="/account">Account</router-link>
         </li>
         <li v-else>
-          <router-link to="/account/register" v-if="authPath == '/account/login'">Register</router-link>
+          <router-link
+            to="/account/register"
+            v-if="authPath == '/account/login'"
+            >Register</router-link
+          >
           <router-link to="/account/login" v-else>Login</router-link>
         </li>
       </ul>
@@ -20,7 +24,13 @@
     <div class="search">
       <input type="text" v-model="value" @change="updateValue" />
       <router-link to="/books"
-        ><button @click="() => {dispatchCustomEvent('search')}">
+        ><button
+          @click="
+            () => {
+              dispatchCustomEvent('search');
+            }
+          "
+        >
           search
         </button></router-link
       >
@@ -34,16 +44,15 @@ import { catchEvent, dispatchCustomEvent } from "../js/Functions.js";
 
 const value = ref("");
 const authPath = ref(window.location.pathname);
-const authenticated = ref(sessionStorage.getItem('user'));
+const authenticated = ref(sessionStorage.getItem("user"));
 
-catchEvent('logout', () => {
-  console.log('logout');
+catchEvent("logout", () => {
   authenticated.value = null;
-})
+});
 
-catchEvent('authenticated', ()=> {
-  authenticated.value = sessionStorage.getItem('user');
-})
+catchEvent("authenticated", () => {
+  authenticated.value = sessionStorage.getItem("user");
+});
 
 window.addEventListener("click", () => {
   authPath.value = window.location.pathname;
@@ -52,14 +61,13 @@ window.addEventListener("click", () => {
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     sessionStorage.setItem("search", value.value);
-    dispatchCustomEvent('search');
+    dispatchCustomEvent("search");
   }
 });
 
 function updateValue() {
   sessionStorage.setItem("search", value.value);
 }
-
 </script>
 
 <style scoped>

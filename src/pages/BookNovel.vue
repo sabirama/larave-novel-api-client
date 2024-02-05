@@ -40,18 +40,27 @@ User
         <li v-for="rating in rateObject" class="rate">
           <span class="rater">
             <button class="user-image">
-              <img :src="rating.user.data.profile_image" alt="user-image" />
+              <img :src="baseUrl + rating.user.data.profile_image" alt="user-image" />
             </button>
             <p class="username">{{ rating.user.data.username }}</p>
             <button
               v-if="rating.user.data.id == userId"
               @click="deleteComment"
               :value="rating.rate.rate.id"
+              class="delete-comment"
             >
               X
             </button>
-            <p v-for="star in 5" :key="star" class="rate-stars">
-              <span v-if="rating.rate >= star">★</span>
+            <p class="rate-stars">
+              <span v-if="rating.rate.rate.rating >= 1">★</span>
+              <span v-else>☆</span>
+              <span v-if="rating.rate.rate.rating >= 2">★</span>
+              <span v-else>☆</span>
+              <span v-if="rating.rate.rate.rating >= 3">★</span>
+              <span v-else>☆</span>
+              <span v-if="rating.rate.rate.rating >= 4">★</span>
+              <span v-else>☆</span>
+              <span v-if="rating.rate.rate.rating >= 5">★</span>
               <span v-else>☆</span>
             </p>
           </span>

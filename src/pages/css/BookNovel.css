@@ -181,6 +181,14 @@
   }
 }
 
+.delete-comment {
+  position: absolute;
+  padding: .25rem;
+  color: rgb(var(--text-tertiary));
+  right: 1rem;
+  top: .5rem;
+}
+
 .overlay {
   position: absolute;
   top: 0;
