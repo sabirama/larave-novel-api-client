@@ -2,10 +2,13 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 1rem;
     box-shadow: 0 0 4px black;
     flex-wrap: wrap;
     background: rgb(var(--bg-secondary));    
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
   header > nav > ul {
@@ -15,7 +18,8 @@ header {
   }
 
   header a.router-link-exact-active {
-    text-shadow: 2px 2px 4px rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgb(0, 0, 0);
+    color: rgb(var(--text-tertiary));
   }
 
   .search {
@@ -55,6 +59,9 @@ header {
   }
 
   @media screen and (min-width: 640px) {
+    header {
+      padding: 1.5rem 2rem;
+    }
     .search {
       position: absolute;
       left: 140px;

@@ -1,5 +1,10 @@
 <template>
   <main class="about">
+    <aside class="breadcrumb">
+    <div>
+      <router-link to="/">home /</router-link><router-link to="/about" class="active">about</router-link>
+    </div>
+  </aside>
     <article>
         <h1>ABOUT</h1>
       <div class="overview">
@@ -49,6 +54,7 @@
       </p>
       </div>
     </article>
+    <button class="to-top" @click="toTop">Back to Top</button>
   </main>
 </template>
 
@@ -57,4 +63,5 @@
 <style scoped>
 @import url(./css/Main.css);
 @import url(./css/About.css);
+@import url(./css/Breadcrumb.css);
 </style>

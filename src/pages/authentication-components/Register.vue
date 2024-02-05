@@ -23,7 +23,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { registerEndpoint } from "../../js/Variables.js";
-import { apiFetch } from "../../js/Functions.js";
+import { apiFetch, dispatchCustomEvent } from "../../js/Functions.js";
 
 const router = useRouter();
 const username = ref("");
@@ -50,8 +50,8 @@ async function registerUser(body) {
     alert('Username or email already exist.');
   }
   if (data.user) {
-    sessionStorage.setItem("user", JSON.stringify(data.token));
-    window.dispatchEvent(new Event('authenticated'));
+    sessionStorage.setItem("user", JSON.stringify(data));
+    dispatchCustomEvent('authenticated');
     router.push('/');
   }
 }

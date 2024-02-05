@@ -37,6 +37,11 @@ const value = ref("");
 const authPath = ref(window.location.pathname);
 const authenticated = ref(sessionStorage.getItem('user'));
 
+catchEvent('logout', () => {
+  console.log('logout');
+  authenticated.value = null;
+})
+
 catchEvent('authenticated', ()=> {
   authenticated.value = sessionStorage.getItem('user');
 })

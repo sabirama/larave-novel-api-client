@@ -23,6 +23,7 @@
   text-decoration: none;
   color: rgb(var(--text-primary));
   transition-duration: .6s;
+  scroll-behavior: smooth;
 }
 
 * ::-webkit-scrollbar {
@@ -163,4 +164,9 @@ button {
     transform: translateY(-2px) rotateY(360deg);
   }
   
+}
+
+.to-top {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
 }

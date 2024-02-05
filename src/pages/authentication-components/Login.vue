@@ -37,7 +37,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { loginEndpoint } from "../../js/Variables.js";
-import { apiFetch } from "../../js/Functions.js";
+import { apiFetch, dispatchCustomEvent } from "../../js/Functions.js";
 
 const router = useRouter();
 const username = ref("");
@@ -56,14 +56,12 @@ async function logInUser(body) {
     null,
     body
   );
-  console.log(data)
   if (data.error) {
     alert("Error Login.");
   }
   if (data.user) {
-    console.log(data)
-    sessionStorage.setItem("user", JSON.stringify(data.token));
-    window.dispatchEvent(new Event("authenticated"));
+    sessionStorage.setItem("user", JSON.stringify(data));
+    dispatchCustomEvent('authenticated');
     router.push("/");
   }
 }
