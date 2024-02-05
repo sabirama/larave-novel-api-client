@@ -94,7 +94,7 @@ const bookObject = ref({});
 const rateObject = ref([]);
 const errorPage = ref(false);
 const auth = sessionStorage.getItem("user");
-const userId = ref(JSON.parse(sessionStorage.getItem("user")).user.id);
+const userId = ref(JSON.parse(sessionStorage.getItem("user"))?.user?.id);
 
 const getBook = async () => {
   try {
