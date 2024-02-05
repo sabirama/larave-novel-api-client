@@ -71,7 +71,7 @@ User
       Only Logged in users can comment.
       <button><router-link to="/account/login">LOG IN </router-link></button>
     </div>
-    <button class="to-top" @click="toTop">Back to Top</button>
+    <ToTop />
   </main>
 </template>
 
@@ -86,7 +86,7 @@ import {
 } from "../js/Variables";
 import Errorpage from "../components/Errorpage.vue";
 import CreateComment from "../components/CreateComment.vue";
-
+import ToTop from "../components/ToTop.vue";
 const book = ref(window.location.pathname);
 const regex = /-(\d+)$/;
 const match = book.value.match(regex);

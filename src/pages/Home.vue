@@ -7,13 +7,14 @@
     </aside>
     <HeroSection />
     <Recommended />
-    <button class="to-top" @click="toTop">Back to Top</button>
+    <ToTop />
   </main>
 </template>
 
 <script setup>
 import HeroSection from "./home-components/HeroSection.vue";
 import Recommended from "./home-components/Recommended.vue";
+import ToTop from "../components/ToTop.vue";
 </script>
 
 <style scoped>

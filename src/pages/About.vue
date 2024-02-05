@@ -54,11 +54,13 @@
       </p>
       </div>
     </article>
-    <button class="to-top" @click="toTop">Back to Top</button>
+    <ToTop />
   </main>
 </template>
 
-<script setup></script>
+<script setup>
+import ToTop from "../components/ToTop.vue";
+</script>
 
 <style scoped>
 @import url(./css/Main.css);

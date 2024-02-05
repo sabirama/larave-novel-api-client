@@ -8,12 +8,13 @@
     </aside>
     <h1>Books</h1>
     <CardCollection />
-    <button class="to-top" @click="toTop">Back to Top</button>
+    <ToTop />
   </main>
 </template>
 
 <script setup>
 import CardCollection from "../components/CardCollection.vue";
+import ToTop from "../components/ToTop.vue";
 </script>
 
 <style scoped>
@@ -21,4 +22,3 @@ import CardCollection from "../components/CardCollection.vue";
 @import url(./css/Books.css);
 @import url(./css/Breadcrumb.css);
 </style>
-../js/Functions.js
