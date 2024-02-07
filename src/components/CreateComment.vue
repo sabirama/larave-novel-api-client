@@ -25,7 +25,7 @@
 <script setup>
 import { ref } from "vue";
 import { apiFetch, dispatchCustomEvent } from "../js/Functions.js";
-import { rateEndpoint } from "../js/Variables.js";
+import { paths } from "../js/Variables.js";
 
 const book = ref(window.location.pathname);
 const regex = /-(\d+)$/;
@@ -39,7 +39,7 @@ const formData = ref({});
 
 const fetchComment = async () => {
    const data = await apiFetch(
-      rateEndpoint,
+      paths.rateEndpoint,
       "POST",
       "application/json",
       JSON.parse(sessionStorage.getItem("user")).token,
@@ -63,7 +63,7 @@ const submitComment = (e) => {
     rate: rateValue.value,
     comment: comment.value,
   };
-
+  dispatchCustomEvent('commented');
   fetchComment();
 };
 </script>

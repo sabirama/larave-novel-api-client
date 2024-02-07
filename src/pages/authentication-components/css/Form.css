@@ -1,61 +1,78 @@
 .form {
-    margin: 2rem auto;
-    padding: 1rem;
+  margin: 2rem auto;
+  padding: 1rem;
 }
 
 .form fieldset {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 1rem;
-    padding: 1rem;
-    box-shadow: 3px 3px 15px black;
-    border-radius: 2rem 2rem 0 4rem;
+  display: grid;
+  max-width: 300px;
+  margin: auto;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  box-shadow: 3px 3px 15px black;
+  border-radius: 2rem 2rem 0 4rem;
+  background: rgba(var(--bg-tertiary), 0.4);
 }
 
 .form fieldset legend {
-   margin: auto;
+  margin: auto;
 }
 
 .form fieldset input {
-    padding: .5rem;
-    margin: .5rem 1rem;
-    border-radius: 12px;
-    text-indent: .5rem;
-    box-shadow: inset 2px 2px 4px black;
-    outline: none;
+  padding: 0.5rem;
+  margin: 0.5rem 1rem;
+  border-radius: 12px;
+  text-indent: 0.5rem;
+  box-shadow: inset 2px 2px 4px black;
+  outline: none;
 }
 
 .form small {
-    padding: 0 1.5rem;
-    font-size: .7rem;
-    letter-spacing: .125rem;
-    transform: translateY(-12px);
+  padding: 0 1.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.125rem;
+  transform: translateY(-12px);
 }
 
 .form fieldset button {
-    margin: auto;
-    padding: .5rem;
-    width: 80%;
-    box-shadow: 2px 2px 4px black;
-    border-radius: 1rem 1rem 0 1.5rem;
-    background: rgb(var(--bg-tertiary));
-    color: white;
+  margin: auto;
+  padding: 0.5rem;
+  width: 80%;
+  box-shadow: 2px 2px 4px black;
+  border-radius: 1rem 1rem 0 1.5rem;
+  background: rgb(var(--bg-tertiary));
+  color: white;
 }
 
 .form fieldset button:hover {
-    background: rgb(var(--bg-primary));
-    color: black;
+  background: rgb(var(--bg-primary));
+  color: black;
 }
 
 .form fieldset button:active {
-    box-shadow:inset 2px 2px 4px black;
-} 
+  box-shadow: inset 2px 2px 4px black;
+}
 
 .other-links {
-    letter-spacing: .125rem;
-    font-size: .7rem;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  background: rgba(128, 128, 128, 0.8);
+  padding: 0.5rem;
+  letter-spacing: 0.125rem;
+  font-size: 0.7rem;
 }
 
 .other-links a {
-    color: black;
+  color: black;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem;
+  margin: 1rem auto;
+  width: fit-content;
+  background: rgba(128, 128, 128, 0.8);
 }

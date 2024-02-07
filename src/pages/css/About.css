@@ -11,7 +11,7 @@ article {
     display: grid;
     padding: 1.5rem;
     gap: 1.5rem;
-    background: rgba(var(--bg-tertiary),.5);
+    background: rgba(var(--bg-tertiary),.8);
     border-radius: 1rem;
     
    

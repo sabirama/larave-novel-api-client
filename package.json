@@ -1,7 +1,7 @@
 {
   "author": {
-    "name": "Mark Condes", 
-    "email": "markcondes21@gmail.com", 
+    "name": "Mark Condes",
+    "email": "markcondes21@gmail.com",
     "url": "https://markcondesportfolio.onrender.com"
   },
   "name": "books-vue",
@@ -14,6 +14,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "googleapis": "^132.0.0",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
   },

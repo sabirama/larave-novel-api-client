@@ -26,19 +26,20 @@
       <button @click="updateForm">Login</button>
     </fieldset>
   </form>
-
+  <div v-if="loading" class="loader">...submitting form.</div>
   <div class="other-links">
-    <span>Don't have an account yet? </span>
-    <router-link to="/account/register">Register here.</router-link>
+    <span>Don't have an account yet?</span>
+    <router-link to="/account/register">...Register here.</router-link>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { loginEndpoint } from "../../js/Variables.js";
+import { paths } from "../../js/Variables.js";
 import { apiFetch, dispatchCustomEvent } from "../../js/Functions.js";
 
+const loading = ref(false)
 const router = useRouter();
 const username = ref("");
 const password = ref("");
@@ -50,7 +51,7 @@ const formData = ref({
 
 async function logInUser(body) {
   const data = await apiFetch(
-    loginEndpoint,
+    paths.loginEndpoint,
     "POST",
     "application/json",
     null,
@@ -68,6 +69,7 @@ async function logInUser(body) {
 
 function updateForm(e) {
   e.preventDefault();
+  loading.value = true;
   try {
     if (username.value.length >= 8) {
       const hasUppercase = /[A-Z]/.test(password.value);

@@ -29,6 +29,28 @@
   height: 100%;
 }
 
+.image-container:focus img {
+  position: fixed;
+  height: auto;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.close-button {
+  display: none;
+  padding: .125rem .25rem;
+ }
+
+ .image-container:focus .close-button {
+   display: block;
+   position: fixed;
+   top: calc(6rem);
+   right: 2rem;
+   background: red;
+   z-index: 2;
+ }
+
 .detail-container {
   padding: 1rem;
 }
@@ -158,10 +180,18 @@
 
   .image-container {
     width: 100%;
+    border: none;
   }
 
   .image-container img {
-   max-height: calc(100%);
+   max-height: 100%;
+  }
+
+  .image-container:focus img {
+    width: 100%;
+    top: 0;
+    left: 1rem;
+
   }
 
   .detail-container {

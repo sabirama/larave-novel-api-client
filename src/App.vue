@@ -7,24 +7,17 @@
 <script setup>
 import AppHeader from "./components/AppHeader.vue";
 import AppFooter from "./components/AppFooter.vue";
-import { apiFetch, dispatchCustomEvent } from "./js/Functions.js";
-import { bookEndpoint } from "./js/Variables";
+import { apiGet, dispatchCustomEvent } from "./js/Functions.js";
+import { paths } from "./js/Variables";
 
 const testUser = async () => {
   if (sessionStorage.getItem("user")) {
     try {
-      const data = await apiFetch(
-        bookEndpoint + 0,
-        "POST",
-        "application/json",
-        JSON.parse(sessionStorage.getItem("user"))?.token
-      );
-      if (data.message) {
-       return
-      } else {
-        console.log("unauthenticated");
-      }
+      await apiGet(
+        paths.authCheck,
+        JSON.parse(sessionStorage.getItem("user"))?.token);
     } catch (e) {
+      alert('Session Logged Out');
       sessionStorage.removeItem("user");
       dispatchCustomEvent("logout");
     }

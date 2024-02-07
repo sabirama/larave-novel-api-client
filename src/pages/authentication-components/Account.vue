@@ -11,8 +11,8 @@
       <img
       :src="
         user?.data?.profile_image
-          ? baseUrl + '/' + user?.data?.profile_image
-          : './src/assets/images/hutao.png'
+          ? paths.assetUrl + '/' + user?.data?.profile_image
+          : '../src/assets/images/hutao.png'
       "
     />
    <CustomFileInput />
@@ -36,9 +36,9 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { baseUrl, logoutEndpoint, userEndpoint } from "../../js/Variables.js";
+import { paths } from "../../js/Variables.js";
 import { apiGet, apiFetch, dispatchCustomEvent } from "../../js/Functions.js";
 import CustomFileInput from "../../components/CustomFileInput.vue";
 
@@ -57,7 +57,7 @@ onBeforeMount(() => {
 
 async function getUser() {
   const data = await apiGet(
-    userEndpoint + authenticated.value.user.id,
+    paths.userEndpoint + authenticated.value.user.id,
     authenticated.value.token
   );
   user.value = data;
@@ -67,7 +67,7 @@ async function removeAPIToken() {
   //clears user-tokens from server and session storage
   try {
     const logoutData = await apiFetch(
-      logoutEndpoint,
+      paths.logoutEndpoint,
       "POST",
       "application/json",
       authenticated.value.token,
@@ -89,9 +89,11 @@ async function removeAPIToken() {
 }
 
 async function logOut() {
-  window.dispatchEvent(new Event("authenticated"));
-  await removeAPIToken();
-  authenticated.value = false;
+  window.dispatchEvent(new Event("logout"));
+  await removeAPIToken().then(() => {
+    authenticated.value = false;
+  });
+  
   router.push("/");
 }
 </script>

@@ -9,7 +9,11 @@ aside {
     padding: .25rem;
     width: 100%;
     box-shadow: 0 0 10px rgb(var(--shadow-primary));
+    position: sticky;
+    top:4rem;
+    z-index: 10;
 }
+
 aside a {
     font-size: .8rem;
     margin-left: .5rem;

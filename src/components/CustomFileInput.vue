@@ -14,18 +14,18 @@
 </template>
 
 <script>
-import { userEndpoint } from "../js/Variables.js";
+import { paths } from "../js/Variables.js";
 import { apiFetch } from "../js/Functions.js";
 
 export default {
   methods: {
     async changeProfilePic() {
       const user = JSON.parse(sessionStorage.getItem("user"));
-      const formData = new FormData();
-      formData.append("file", this.$refs.fileInput.files[0]);
+      const formData = this.$refs.fileInput.files[0]
+
       try {
         const data = await apiFetch(
-          userEndpoint + user?.user?.id,
+          paths.userEndpoint + user?.user?.id,
           "POST",
           "multipart/form-data",
           user?.token,
@@ -36,7 +36,7 @@ export default {
       }
     },
     handleFileChange() {
-      this.changeProfilePic();
+      console.log('test')
     },
     triggerFileInput() {
       this.$refs.fileInput.click();

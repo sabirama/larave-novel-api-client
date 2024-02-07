@@ -1,30 +1,33 @@
 //all endpoints pathname is saved in the .env file and declared in this js file for better maintainability
-export const apiUrl = import.meta.env.VITE_API_URL;
-export const baseUrl = import.meta.env.VITE_BASE_URL;
-export const registerEndpoint = import.meta.env.VITE_API_URL_REGISTER;
-export const loginEndpoint = import.meta.env.VITE_API_URL_LOGIN;
-export const logoutEndpoint = import.meta.env.VITE_API_URL_LOGOUT;
+export const paths = {
+    authCheck: import.meta.env.VITE_API_URL_AUTH_CHECKER,
+    apiUrl: import.meta.env.VITE_API_URL,
+    assetUrl: import.meta.env.VITE_ASSET_URL,
+    registerEndpoint: import.meta.env.VITE_API_URL_REGISTER,
+    loginEndpoint: import.meta.env.VITE_API_URL_LOGIN,
+    logoutEndpoint: import.meta.env.VITE_API_URL_LOGOUT,
+    userEndpoint: import.meta.env.VITE_API_URL_USERS,
+    bookEndpoint: import.meta.env.VITE_API_URL_BOOKS,
+    rateEndpoint: import.meta.env.VITE_API_URL_RATES,
+}
 
-export const userEndpoint = import.meta.env.VITE_API_URL_USERS;
-
-export const bookEndpoint = import.meta.env.VITE_API_URL_BOOKS;
-export const rateEndpoint = import.meta.env.VITE_API_URL_RATES;
+//google api 
+export const googleAPI = {
+    clientId: import.meta.env.VITE_GOOGLE_API_CLIENT_ID,
+    clientSecret: import.meta.env.VITE_GOOGLE_API_CLIENT_SECRET,
+    redirectUri: import.meta.env.VITE_GOOGLE_API_REDIRECT_URI,
+    refreshToken: import.meta.env.VITE_GOOGLE_API_REFRESH_TOKEN
+}
 
 //parameters keys
-export const searchBookTitle = (value) => {return import.meta.env.VITE_API_URL_BOOKS_SEARCH + '=' + value};
-export const pageSize = (value) => { return import.meta.env.VITE_API_URL_BOOKS_SIZE + '=' + value};
-export const pageOn = (value) => { return import.meta.env.VITE_API_URL_BOOKS_ON + '=' + value};
+export const apiParams = {
+    searchBookTitle: (value) => { return import.meta.env.VITE_API_URL_BOOKS_SEARCH + '=' + value },
+    pageSize: (value) => { return import.meta.env.VITE_API_URL_BOOKS_SIZE + '=' + value },
+    pageOn: (value) => { return import.meta.env.VITE_API_URL_BOOKS_ON + '=' + value },
+}
 
-
-export default { 
-    apiUrl,
-    baseUrl,
-    userEndpoint, 
-    loginEndpoint, 
-    logoutEndpoint, 
-    bookEndpoint, 
-    searchBookTitle, 
-    pageSize, 
-    pageOn, 
-    rateEndpoint 
+export default {
+    paths,
+    googleAPI,
+    apiParams
 };

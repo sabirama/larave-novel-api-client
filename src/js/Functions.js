@@ -1,4 +1,4 @@
-import { apiUrl } from "./Variables.js";
+import { paths } from "./Variables.js";
 
 export const dispatchCustomEvent = (event) => {
     //takes a string(event) to dispatch an event.
@@ -12,7 +12,7 @@ export const catchEvent = (event, action) => {
 
 export const apiGet = async(endpoint, token) => {
     //takes in a string(endpoint) to do a GET fetch.
-    const data = await fetch(apiUrl + endpoint, {
+    const data = await fetch(paths.apiUrl + endpoint, {
         'headers' : {
             Authorization : `Bearer ${token}`
         }
@@ -29,7 +29,7 @@ export const apiFetch = async(endpoint, method, content, token, body) => {
     let formBody;
      (content == 'application/json') ? formBody = JSON.stringify(body) : formBody = body;
 
-     const data = await fetch(apiUrl + endpoint, {
+     const data = await fetch(paths.apiUrl + endpoint, {
         'method' :method,
         'headers': {
             'Content-Type' : content,

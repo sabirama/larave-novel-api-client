@@ -5,19 +5,27 @@ User
   </div>
 
   <main class="book-novel" v-else>
+    <aside>
+      <div>
+        <router-link to="/">home /</router-link>
+        <router-link to="/books">books /</router-link>
+        <router-link :to="thisPath" class="active">{{bookObject.title}}</router-link>
+      </div>
+    </aside>
     <div class="book-main-container">
-      <div class="image-container">
+      <button class="image-container">
         <h3>{{ bookObject.title }}</h3>
         <img
           :src="
             bookObject.cover_image
-              ? baseUrl + bookObject.cover_image
+              ? paths.assetUrl + bookObject.cover_image
               : '../src/assets/images/hutao.png'
           "
           :alt="bookObject.title"
         />
+        <button class="close-button">X</button>
         <div class="overlay"></div>
-      </div>
+      </button>
       <div class="detail-container">
         <ul class="authors background">
           <h4>Authors</h4>
@@ -28,8 +36,8 @@ User
           <li v-for="genre in bookObject.genre">{{ genre.name }}</li>
         </ul>
       </div>
-
       <div class="about background">
+        
         <h4>About</h4>
         <p>{{ bookObject.details }}</p>
       </div>
@@ -38,34 +46,44 @@ User
       <h4>Comments</h4>
       <ul v-if="rateObject !== false">
         <li v-for="rating in rateObject" class="rate">
+         
           <span class="rater">
+          
             <button class="user-image">
-              <img :src="baseUrl + rating.user.data.profile_image" alt="user-image" />
+              <img
+                :src="
+                 rating.user[0].profile_image 
+                    ? paths.assetUrl + rating.user[0].profile_image 
+                    : '../src/assets/images/hutao.png'
+                "
+                alt="user-image"
+              />
             </button>
-            <p class="username">{{ rating.user.data.username }}</p>
+            <p class="username"> {{ rating.user[0].username }}</p>
+
             <button
-              v-if="rating.user.data.id == userId"
+              v-if="rating.user[0].id === userId"
               @click="deleteComment"
-              :value="rating.rate.rate.id"
+              :value="rating.rate.id"
               class="delete-comment"
             >
               X
             </button>
             <p class="rate-stars">
-              <span v-if="rating.rate.rate.rating >= 1">★</span>
+              <span v-if="rating.rate.rating >= 1">★</span>
               <span v-else>☆</span>
-              <span v-if="rating.rate.rate.rating >= 2">★</span>
+              <span v-if="rating.rate.rating>= 2">★</span>
               <span v-else>☆</span>
-              <span v-if="rating.rate.rate.rating >= 3">★</span>
+              <span v-if="rating.rate.rating >= 3">★</span>
               <span v-else>☆</span>
-              <span v-if="rating.rate.rate.rating >= 4">★</span>
+              <span v-if="rating.rate.rating >= 4">★</span>
               <span v-else>☆</span>
-              <span v-if="rating.rate.rate.rating >= 5">★</span>
+              <span v-if="rating.rate.rating >= 5">★</span>
               <span v-else>☆</span>
             </p>
           </span>
           <div class="rate-content">
-            <p>{{ rating.rate.rate.comment }}</p>
+            <p>{{ rating.rate.comment }}</p>
           </div>
         </li>
       </ul>
@@ -87,12 +105,7 @@ User
 <script setup>
 import { ref, onMounted } from "vue";
 import { apiFetch, apiGet, catchEvent } from "../js/Functions.js";
-import {
-  bookEndpoint,
-  baseUrl,
-  rateEndpoint,
-  userEndpoint,
-} from "../js/Variables";
+import { paths } from "../js/Variables";
 import Errorpage from "../components/Errorpage.vue";
 import CreateComment from "../components/CreateComment.vue";
 import ToTop from "../components/ToTop.vue";
@@ -104,11 +117,12 @@ const rateObject = ref([]);
 const errorPage = ref(false);
 const auth = sessionStorage.getItem("user");
 const userId = ref(JSON.parse(sessionStorage.getItem("user"))?.user?.id);
+const thisPath = window.location.pathname
 
 const getBook = async () => {
   try {
-    const { data } = await apiGet(bookEndpoint + match[1]);
-    bookObject.value = data;
+    const data = await apiGet(paths.bookEndpoint + match[1]);
+    bookObject.value = data[0];
   } catch (error) {
     if (!match) {
       errorPage.value = true;
@@ -119,33 +133,42 @@ const getBook = async () => {
 
 const getRating = async () => {
   try {
-    const { data } = await apiGet(rateEndpoint + match[1]);
+    const data = await apiGet(paths.rateEndpoint + match[1]);
 
-    if (data) {
-      data.forEach((element) => {
-        return getUser(element);
-      });
+    if (data[0]) {
+      await data[0]?.map(async (element) => {
+        const test = await getUser(element);
+        rateObject?.value?.push({
+          rate: element?.rate,
+          user: test,
+        });
+      })
     } else {
       rateObject.value = false;
     }
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
   }
 };
 
 const getUser = async (data) => {
   try {
-    const user = await apiGet(userEndpoint + data.rate.user.id);
-    rateObject?.value?.push({ rate: data, user: user });
+    const user = await apiGet(paths.userEndpoint + data.rate.user.id);
+    return user;
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
   }
 };
+
+catchEvent('commented', () => {
+  rateObject.value = [];
+  getRating();
+});
 
 const deleteComment = async (e) => {
   try {
     const data = await apiFetch(
-      rateEndpoint + e.target.value,
+      paths.rateEndpoint + e.target.value,
       "DELETE",
       "application/json",
       JSON.parse(sessionStorage.getItem("user")).token,
@@ -155,15 +178,11 @@ const deleteComment = async (e) => {
       rateObject.value = [];
       getRating();
     }
+
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
   }
 };
-
-catchEvent("commented", () => {
-  rateObject.value = [];
-  getRating();
-});
 
 onMounted(() => {
   getBook();
@@ -176,4 +195,5 @@ onMounted(() => {
 <style scoped>
 @import url(./css/Main.css);
 @import url(./css/BookNovel.css);
+@import url(./css/Breadcrumb.css);
 </style>

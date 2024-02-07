@@ -1,6 +1,6 @@
 <template>
     <div class="card-container" >
-           <span class="card-with-details" v-for="(item) in books.value">
+           <span class="card-with-details" v-for="(item) in books">
             <AppCard 
                 :imgSrc="item.cover_image ? url + item.cover_image : '/src/assets/images/placeholder-book-image.svg'"
                 :popular="'hot'"
@@ -19,10 +19,10 @@
 import { onMounted, ref } from 'vue';
 import {catchEvent, apiGet} from '../js/Functions.js';
 import AppCard from './AppCard.vue';
-import Variables from '../js/Variables.js';
+import { paths, apiParams } from '../js/Variables';
 
 const books = ref([]);
-const url = Variables.baseUrl;
+const url = paths.assetUrl;
 const currPage = ref(1);
 
 catchEvent('search', ()=>{
@@ -30,14 +30,14 @@ catchEvent('search', ()=>{
 });
 
 const getData = async () => {
-    const pageUrl = Variables.bookEndpoint + "?" + Variables.searchBookTitle(sessionStorage.getItem('search')) + Variables.pageSize(20) + Variables.pageOn(currPage.value)
+    const pageUrl = paths.bookEndpoint + "?" + apiParams.searchBookTitle(sessionStorage.getItem('search')) + apiParams.pageSize(20) + apiParams.pageOn(currPage.value)
     let data;
     if (sessionStorage.getItem('search')) {
         data = await apiGet(pageUrl);
     } else {
-        data = await apiGet(Variables.bookEndpoint);
+        data = await apiGet(paths.bookEndpoint);
     }
-    books.value = ref(data.data);
+    books.value = data[0];
     return;
 }
 

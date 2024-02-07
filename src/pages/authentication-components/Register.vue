@@ -13,18 +13,20 @@
       <button @click="updateForm">Register</button>
     </fieldset>
   </form>
+  <div v-if="loading" class="loader">...submitting form.</div>
   <div class="other-links">
-    <span>Already have an account yet? </span>
-    <router-link to="/account/login">Login here.</router-link>
+    <span>Already have an account yet?</span>
+    <router-link to="/account/login">...Login here.</router-link>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { registerEndpoint } from "../../js/Variables.js";
+import { paths } from "../../js/Variables.js";
 import { apiFetch, dispatchCustomEvent } from "../../js/Functions.js";
 
+const loading = ref(false);
 const router = useRouter();
 const username = ref("");
 const email = ref("");
@@ -40,7 +42,7 @@ const formData = ref({
 
 async function registerUser(body) {
   const data = await apiFetch(
-    registerEndpoint,
+    paths.registerEndpoint,
     "POST",
     "application/json",
     null,
@@ -58,7 +60,7 @@ async function registerUser(body) {
 
 function updateForm(e) {
   e.preventDefault();
-
+  loading.value = true;
   try {
     if (username.value.length >= 8) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

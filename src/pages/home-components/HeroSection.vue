@@ -37,13 +37,13 @@
 import { onMounted, ref } from 'vue';
 import { apiGet } from '../../js/Functions.js';
 import AppCard from '../../components/AppCard.vue';
-import Variables from '../../js/Variables.js';
+import { apiParams, paths } from '../../js/Variables.js';
 
 const books = ref([]);
-const url = Variables.baseUrl;
+const url = paths.assetUrl;
 
 const getData = async () => {
-    const data = await apiGet(Variables.bookEndpoint + "?" + Variables.pageSize(8));
+    const data = await apiGet(paths.bookEndpoint + "?" + apiParams.pageSize(8));
     return books.value = ref(data.data);
 }
 
