@@ -19,7 +19,7 @@
       <h4>LATEST</h4>
       <div class="card-container">
         <AppCard
-          v-for="(item) in books.value"
+          v-for="(item) in books"
           :imgSrc="item.cover_image? url + item.cover_image : '/src/assets/images/placeholder-book-image.svg'"
           :popular="'hot'"
           :latest="'new'"
@@ -44,7 +44,7 @@ const url = paths.assetUrl;
 
 const getData = async () => {
     const data = await apiGet(paths.bookEndpoint + "?" + apiParams.pageSize(8));
-    return books.value = ref(data.data);
+    return books.value = data[0];
 }
 
 onMounted(()=> {getData('') });
