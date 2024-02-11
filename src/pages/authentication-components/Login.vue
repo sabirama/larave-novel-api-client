@@ -57,8 +57,12 @@ async function logInUser(body) {
     null,
     body
   );
+  
+  loading.value = true;
+
   if (data.error) {
     alert("Error Login.");
+    loading.value = false;
   }
   if (data.user) {
     sessionStorage.setItem("user", JSON.stringify(data));
@@ -69,7 +73,6 @@ async function logInUser(body) {
 
 function updateForm(e) {
   e.preventDefault();
-  loading.value = true;
   try {
     if (username.value.length >= 8) {
       const hasUppercase = /[A-Z]/.test(password.value);

@@ -15,8 +15,8 @@
   </form>
   <div v-if="loading" class="loader">...submitting form.</div>
   <div class="other-links">
-    <span>Already have an account yet?</span>
-    <router-link to="/account/login">...Login here.</router-link>
+    <span>Already have an account?</span>
+    <router-link to="/account/login"> ...Login here.</router-link>
   </div>
 </template>
 
@@ -48,10 +48,14 @@ async function registerUser(body) {
     null,
     body
   );
+
+  loading.value = true;
+
   if (data.error){
     alert('Username or email already exist.');
+    loading.value = false;
   }
-  if (data.user) {
+ else if (data.user) {
     sessionStorage.setItem("user", JSON.stringify(data));
     dispatchCustomEvent('authenticated');
     router.push('/');
@@ -60,7 +64,6 @@ async function registerUser(body) {
 
 function updateForm(e) {
   e.preventDefault();
-  loading.value = true;
   try {
     if (username.value.length >= 8) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -80,13 +83,12 @@ function updateForm(e) {
           hasSpecialChar &&
           password.value.length >= 8
         ) {
-          if (password.value == confirmPassword.value) {
+          if (password.value === confirmPassword.value) {
             const data = (formData.value = {
               username: username.value,
               email: email.value,
               password: password.value,
             });
-
             registerUser(data);
           } else {
             alert("Confirm password do not match");

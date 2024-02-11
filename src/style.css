@@ -168,5 +168,8 @@ button {
 
 .to-top {
   width: 100%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.4);
+  padding: .25rem;
+  position: sticky;
+  bottom: 0;
 }

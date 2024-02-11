@@ -7,42 +7,31 @@
       accept="image/jpg, image/jpeg, image/png"
       @change="handleFileChange"
     />
-    <label class="custom-file-label" @click="triggerFileInput"
-      >Change image</label
-    >
+    <label class="custom-file-label" @click="triggerFileInput">Change image</label>
   </div>
 </template>
 
 <script>
-import { paths } from "../js/Variables.js";
-import { apiFetch } from "../js/Functions.js";
-
 export default {
+  data() {
+    return {
+      imageUrl: '' // To store the URL of the selected image
+    };
+  },
   methods: {
-    async changeProfilePic() {
-      const user = JSON.parse(sessionStorage.getItem("user"));
-      const formData = this.$refs.fileInput.files[0]
-
-      try {
-        const data = await apiFetch(
-          paths.userEndpoint + user?.user?.id,
-          "POST",
-          "multipart/form-data",
-          user?.token,
-          formData
-        );
-      } catch (error) {
-        console.error("Error in API request:", error);
+    handleFileChange(e) {
+      const file = e.target.files[0];
+      if (file) {
+        // Read the selected file and set its URL to imageUrl
+        this.imageUrl = URL.createObjectURL(file);
       }
     },
-    handleFileChange() {
-      console.log('test')
-    },
     triggerFileInput() {
+      // To trigger the file input click event, you can access the input element using $refs
       this.$refs.fileInput.click();
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -11,14 +11,6 @@ export const paths = {
     rateEndpoint: import.meta.env.VITE_API_URL_RATES,
 }
 
-//google api 
-export const googleAPI = {
-    clientId: import.meta.env.VITE_GOOGLE_API_CLIENT_ID,
-    clientSecret: import.meta.env.VITE_GOOGLE_API_CLIENT_SECRET,
-    redirectUri: import.meta.env.VITE_GOOGLE_API_REDIRECT_URI,
-    refreshToken: import.meta.env.VITE_GOOGLE_API_REFRESH_TOKEN
-}
-
 //parameters keys
 export const apiParams = {
     searchBookTitle: (value) => { return import.meta.env.VITE_API_URL_BOOKS_SEARCH + '=' + value },
@@ -28,6 +20,5 @@ export const apiParams = {
 
 export default {
     paths,
-    googleAPI,
     apiParams
 };
