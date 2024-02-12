@@ -3,30 +3,22 @@
     <fieldset>
       <legend>Log in</legend>
 
-      <input
-        type="text"
-        placeholder="username"
-        v-model="username"
-        @change="formData.username = username"
-      />
+      <input type="text" placeholder="username" v-model="username" @change="formData.username = username" />
 
-      <input
-        type="password"
-        placeholder="password"
-        v-model="password"
-        @change="formData.password = password"
-      />
+      <span>
+        <input :type="showPass" placeholder="password" v-model="password" @change="formData.password = password" class="password" />
+        <input type="button" @click="toggleShow" :value="show">
+      </span>
 
-      <small
-        ><router-link to="/account/password-reset"
-          >forgot password?</router-link
-        ></small
-      >
+      <small><router-link to="/account/password-reset">forgot password?</router-link></small>
 
       <button @click="updateForm">Login</button>
     </fieldset>
   </form>
   <div v-if="loading" class="loader">...submitting form.</div>
+  <div v-else-if="!success" class="loader">
+    Wrong credentials. <button @click="closeMessage">close</button>
+  </div>
   <div class="other-links">
     <span>Don't have an account yet?</span>
     <router-link to="/account/register">...Register here.</router-link>
@@ -39,7 +31,10 @@ import { useRouter } from "vue-router";
 import { paths } from "../../js/Variables.js";
 import { apiFetch, dispatchCustomEvent } from "../../js/Functions.js";
 
-const loading = ref(false)
+const loading = ref(false);
+const success = ref(true);
+const showPass = ref('password');
+const show = ref("🔒")
 const router = useRouter();
 const username = ref("");
 const password = ref("");
@@ -49,26 +44,39 @@ const formData = ref({
   password: "password",
 });
 
+function closeMessage() {
+  success.value = true;
+  loading.value = false;
+}
+
+function toggleShow() {
+  if (showPass.value === 'password') {
+    showPass.value = "text";
+    show.value = "👁"
+  } else {
+    showPass.value = "password";
+    show.value = "🔒";
+  };
+}
+
 async function logInUser(body) {
-  const data = await apiFetch(
+  loading.value = true;
+  await apiFetch(
     paths.loginEndpoint,
     "POST",
     "application/json",
     null,
     body
-  );
-  
-  loading.value = true;
-
-  if (data.error) {
-    alert("Error Login.");
+  ).then((response) => {
     loading.value = false;
-  }
-  if (data.user) {
-    sessionStorage.setItem("user", JSON.stringify(data));
-    dispatchCustomEvent('authenticated');
-    router.push("/");
-  }
+    if (response.user) {
+      sessionStorage.setItem("user", JSON.stringify(response));
+      dispatchCustomEvent("authenticated");
+      router.push("/");
+    } else {
+      success.value = false;
+    }
+  });
 }
 
 function updateForm(e) {

@@ -24,7 +24,8 @@ export const apiGet = async(endpoint, token) => {
 }
 
 export const apiFetch = async(endpoint, method, content, token, body) => {
-     //takes in a string(endpoint), string(method),string(content) for either application/json or form-data, string(token) and object(body) to perform fetch request
+     //takes in a string(endpoint), string(method),string(content) for either application/json or form-data, 
+     //string(token) and object(body) to perform fetch request
     
     let formBody;
      (content == 'application/json') ? formBody = JSON.stringify(body) : formBody = body;
@@ -39,7 +40,6 @@ export const apiFetch = async(endpoint, method, content, token, body) => {
      }).then( async response => {
         let data;
         (content == 'application/json') ? data = await response.json() : data = response;
-        
          return data;
      });
      return data;

@@ -4,16 +4,27 @@
       <legend>Register</legend>
       <input type="text" placeholder="username" v-model="username" />
       <input type="email" placeholder="email" v-model="email" />
-      <input type="text" placeholder="password" v-model="password" />
-      <input
-        type="text"
-        placeholder="confirm-password"
-        v-model="confirmPassword"
-      />
+      <span>
+        <input :type="showPass" placeholder="password" v-model="password" class="password"/>
+        <input type="button" :value="show" @click="()=>{toggleShow()}"/>
+      </span>
+      <span>
+        <input
+          :type="showConfirmPass"
+          placeholder="confirm-password"
+          v-model="confirmPassword"
+          class="password"
+        />
+        <input type="button" :value="showConfirm" @click="()=>{toggleShowConfirm()}" />
+      </span>
       <button @click="updateForm">Register</button>
     </fieldset>
   </form>
   <div v-if="loading" class="loader">...submitting form.</div>
+  <div v-if="!success" class="loader">
+    Username or email already exist.
+    <button @click="closeMessage">close</button>
+  </div>
   <div class="other-links">
     <span>Already have an account?</span>
     <router-link to="/account/login"> ...Login here.</router-link>
@@ -27,6 +38,11 @@ import { paths } from "../../js/Variables.js";
 import { apiFetch, dispatchCustomEvent } from "../../js/Functions.js";
 
 const loading = ref(false);
+const success = ref(true);
+const showPass = ref('password');
+const showConfirmPass = ref('password');
+const show = ref('🔒')
+const showConfirm = ref('🔒')
 const router = useRouter();
 const username = ref("");
 const email = ref("");
@@ -40,26 +56,49 @@ const formData = ref({
   confirmPassword: "password",
 });
 
+function toggleShow() {
+  if (showPass.value === 'password') {
+    showPass.value = "text";
+    show.value = "👁";
+  } else {
+    showPass.value = "password"
+    show.value = "🔒";
+  };
+}
+
+function toggleShowConfirm() {
+  if (showConfirmPass.value === 'password') {
+    showConfirmPass.value = "text";
+    showConfirm.value = "👁";
+  } else {
+    showConfirmPass.value = "password";
+    showConfirm.value = "🔒";
+  };
+}
+
+function closeMessage() {
+  success.value = true;
+  loading.value = false;
+}
+
 async function registerUser(body) {
-  const data = await apiFetch(
+  await apiFetch(
     paths.registerEndpoint,
     "POST",
     "application/json",
     null,
     body
-  );
-
-  loading.value = true;
-
-  if (data.error){
-    alert('Username or email already exist.');
-    loading.value = false;
-  }
- else if (data.user) {
-    sessionStorage.setItem("user", JSON.stringify(data));
-    dispatchCustomEvent('authenticated');
-    router.push('/');
-  }
+  ).then((response) => {
+    loading.value = true;
+    if (response.user) {
+      loading.value = false;
+      sessionStorage.setItem("user", JSON.stringify(response));
+      dispatchCustomEvent("authenticated");
+      router.push("/");
+    } else {
+      success.value = false;
+    }
+  });
 }
 
 function updateForm(e) {

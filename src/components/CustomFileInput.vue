@@ -8,6 +8,7 @@
       @change="handleFileChange"
     />
     <label class="custom-file-label" @click="triggerFileInput">Change image</label>
+    <img :src="imageUrl" alt="">
   </div>
 </template>
 
@@ -50,5 +51,9 @@ export default {
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.custom-file-container img {
+  position: absolute;
 }
 </style>
