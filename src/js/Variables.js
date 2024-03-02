@@ -18,7 +18,10 @@ export const apiParams = {
     pageOn: (value) => { return import.meta.env.VITE_API_URL_BOOKS_ON + '=' + value },
 }
 
+export const googleUpload = import.meta.env.VITE_GOOGLE_ENDPOINT; 
+
 export default {
     paths,
-    apiParams
+    apiParams,
+    googleUpload
 };

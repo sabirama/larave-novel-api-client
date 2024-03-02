@@ -8,25 +8,20 @@
   </aside>
   <div class="account">
     <div  class="profile-image">
-      <img
-      :src="
-        user?.data?.profile_image
-          ? paths.assetUrl + '/' + user?.data?.profile_image
-          : '../src/assets/images/hutao.png'
-      "
-    />
+     <img :src=" paths.assetUrl + user[0]?.profile_image" />
    <CustomFileInput />
     </div>
     <div class="user-details">
-      <p>username: {{ user?.data?.username }}</p>
-      <p>email: {{ user?.data?.email }}</p>
+  
+      <p>username: {{ user[0]?.username }}</p>
+      <p>email: {{user[0]?.email }}</p>
       <p>
-        Name: <span>{{ user?.data?.first_name }}</span> {{ " " }}
-        <span>{{ user?.data?.last_name }}</span>
+        Name: <span>{{ user[0]?.first_name }}</span> {{ " " }}
+        <span>{{ user[0]?.last_name }}</span>
       </p>
       <p>
         Address:
-        {{ user?.data?.address }}
+        {{ user[0]?.address }}
       </p>
     </div>
     <div class="upcoming">
@@ -36,10 +31,10 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, onMounted } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import { paths } from "../../js/Variables.js";
-import { apiGet, apiFetch, dispatchCustomEvent } from "../../js/Functions.js";
+import { apiGet, apiFetch, dispatchCustomEvent, catchEvent } from "../../js/Functions.js";
 import CustomFileInput from "../../components/CustomFileInput.vue";
 
 const authenticated = ref("");
@@ -96,6 +91,10 @@ async function logOut() {
   
   router.push("/");
 }
+
+catchEvent("change_profile_image", ()=> {
+  getUser();
+})
 </script>
 
 <style scoped>

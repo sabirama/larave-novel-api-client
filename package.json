@@ -14,7 +14,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "googleapis": "^133.0.0",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
   },
